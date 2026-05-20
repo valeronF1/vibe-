@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picnic World - Ghidul tău pentru picnicuri memorabile</title>
+    <style>
+        /* Stiluri Generale */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f9f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1526481280693-3bfa756667f7?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+
+        nav {
+            background-color: #2e7d32;
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #a5d6a7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #81c784;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Carduri Locații */
+        .grid-locatii {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .card-locatie {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media(min-width: 768px) {
+            .card-locatie {
+                flex-direction: row;
+            }
+            .card-info {
+                flex: 1;
+            }
+            .card-map {
+                width: 40%;
+                min-width: 300px;
+            }
+        }
+
+        .card-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        @media(min-width: 768px) {
+            .card-img {
+                height: 100%;
+                width: 35%;
+            }
+        }
+
+        .card-info {
+            padding: 25px;
+        }
+
+        .card-info h3 {
+            color: #1b5e20;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .tara {
+            display: inline-block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .detalii-concrete {
+            margin: 15px 0;
+            font-size: 0.95rem;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #81c784;
+        }
+
+        /* Recenzii */
+        .recenzii-sectiune {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .recenzii-sectiune h4 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .recenzie {
+            background: #fffdf9;
+            border: 1px solid #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .stele {
+            color: #ffb300;
+            font-weight: bold;
+        }
+
+        .autor {
+            font-style: italic;
+            color: #777;
+            display: block;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        /* Harta iframe */
+        .card-map iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 250px;
+            border: 0;
+        }
+
+        footer {
+            background-color: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Banner principal -->
+    <header id="acasa">
+        <h1>Picnic în Cele Mai Frumoase Locuri din Lume</h1>
+        <p>Descoperă locații de poveste, hărți exacte și recenzii de la călători.</p>
+    </header>
+
+    <!-- Meniu de Navigare -->
+    <nav>
+        <a href="#acasa">Acasă</a>
+        <a href="#locatii">Locații Picnic</a>
+        <a href="#despre">Despre Proiect</a>
+    </nav>
+
+    <!-- Conținutul Principal -->
+    <div class="container" id="locatii">
+        <h2 class="section-title">Destinații Recomandate</h2>
+
+        <div class="grid-locatii">
+
+            <!-- LOCAȚIA 1: PARIS -->
+            <div class="card-locatie">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80" alt="Champ de Mars Paris" class="card-img">
+                
+                <div class="card-info">
+                    <span class="tara">Franța, Paris</span>
+                    <h3>Grădinile Champ de Mars</h3>
+                    <p>Nimic nu se compară cu un picnic clasic franțuzesc, cu baghete proaspete și brânzeturi fine, chiar la picioarele Turnului Eiffel. Gazonul întins oferă atmosfera perfectă, mai ales la apus.</p>
+                    
+                    <div class="detalii-concrete">
+                        <strong>📍 Locație concretă:</strong> Partea centrală a gazonului, între Avenue Joseph Bouvard și Avenue Charles Floquet.<br>
+                        <strong>🚗 Facilități:</strong> Toalete publice în apropiere, bănci, iluminat nocturn.<br>
+                        <strong>💡 Sfat:</strong> Rămâi până la ora fixă seara pentru a prinde spectacolul de lumini al Turnului Eiffel!
+                    </div>
+
+                    <div class="recenzii-sectiune">
+                        <h4>Recenzii de la vizitatori</h4>
+                        <div class="recenzie">
+                            <span class="stele">⭐⭐⭐⭐⭐</span>
+                            <p>"O experiență magică. Am cumpărat brânză și vin de la o băcănie locală și am stat 3 ore. Aglomerat, dar merită din plin!"</p>
+                            <span class="autor">- Amalia R.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hartă Google Maps încorporată -->
+                <div class="card-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.991625693481!2d2.297401215674391!3d48.855848979287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6701d7ed0ca7f%3A0x86708a3d4204b7e5!2sChamp%20de%20Mars!5e0!3m2!1sro!2sro!4v1710000000000!5m2!1sro!2sro" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <!-- LOCAȚIA 2: NEW YORK -->
+            <div class="card-locatie">
+                <img src="https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?auto=format&fit=crop&w=600&q=80" alt="Central Park New York" class="card-img">
+                
+                <div class="card-info">
+                    <span class="tara">SUA, New York</span>
+                    <h3>Sheep Meadow (Central Park)</h3>
+                    <p>O oază imensă de verdeață în mijlocul junglei de zgârie-nori. Sheep Meadow este zona oficială dedicată relaxării și picnicurilor în Central Park, unde mașinile și sporturile agresive sunt interzise.</p>
+                    
+                    <div class="detalii-concrete">
+                        <strong>📍 Locație concretă:</strong> Partea de sud-vest a Central Park, între străzile 66th și 69th West.<br>
+                        <strong>🚗 Facilități:</strong> Zone cu umbră, standuri cu mâncare în apropiere, păzitori de parc.<br>
+                        <strong>💡 Sfat:</strong> Intrarea cu biciclete sau animale de companie pe gazonul principal este restricționată pentru a păstra curățenia.
+                    </div>
+
+                    <div class="recenzii-sectiune">
+                        <h4>Recenzii de la vizitatori</h4>
+                        <div class="recenzie">
+                            <span class="stele">⭐⭐⭐⭐⭐</span>
+                            <p>"Contrastul dintre iarbă și zgârie-norii din jur este incredibil. Cel mai bun loc de relaxare din Manhattan."</p>
+                            <span class="autor">- Ioan D.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.060682283995!2d-73.97491142416246!3d40.770603071384595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258f1f582d92b%3A0x6e9f0d14bdf3be85!2sSheep%20Meadow!5e0!3m2!1sro!2sro!4v1710000000001!5m2!1sro!2sro" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <!-- LOCAȚIA 3: JAPONIA (TOKYO) -->
+            <div class="card-locatie">
+                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80" alt="Shinjuku Gyoen Tokyo" class="card-img">
+                
+                <div class="card-info">
+                    <span class="tara">Japonia, Tokyo</span>
+                    <h3>Parcul Shinjuku Gyoen</h3>
+                    <p>Unul dintre cele mai mari și mai frumoase parcuri din Tokyo. Este destinația ideală pentru "Hanami" (picnicul sub cireșii înfloriți primăvara). Îmbină stilul grădinilor tradiționale japoneze cu cel englezesc.</p>
+                    
+                    <div class="detalii-concrete">
+                        <strong>📍 Locație concretă:</strong> Gazonul central din zona grădinii în stil englezesc (English Landscape Garden).<br>
+                        <strong>🚗 Facilități:</strong> Toalete ultra-moderne, cebăării tradiționale, curățenie impecabilă.<br>
+                        <strong>💡 Sfat:</strong> Se plătește o taxă mică de intrare (aprox. 500 yeni), iar alcoolul este strict interzis în parc.
+                    </div>
+
+                    <div class="recenzii-sectiune">
+                        <h4>Recenzii de la vizitatori</h4>
+                        <div class="recenzie">
+                            <span class="stele">⭐⭐⭐⭐⭐</span>
+                            <p>"Atât de liniștit și curat! Am fost în timpul sezonului de Sakura și a fost de-a dreptul ireal. Recomand bento box cumpărat din gară."</p>
+                            <span class="autor">- Yuki M.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.0506085601826!2d139.70769317637834!3d35.68517507258416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cc00bbfab39%3A0x6796ec7eb5fb146d!2sShinjuku%20Gyoen%20National%20Garden!5e0!3m2!1sro!2sro!4v1710000000002!5m2!1sro!2sro" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Secțiunea Despre -->
+    <div class="container" id="despre" style="background: white; padding: 30px; border-radius: 12px; margin-top: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <h3 style="color: #2e7d32; margin-bottom: 15px;">Despre Picnic World</h3>
+        <p>Acest site a fost creat din pasiune pentru natură, călătorii și mâncare bună în aer liber. Credem că cele mai bune amintiri se formează atunci când împarți o gustare cu cei dragi, privind un peisaj spectaculos. Ghidul nostru strânge locații exacte pentru a te ajuta să îți planifici următoarea evadare.</p>
+    </div>
+
+    <!-- Subsol (Footer) -->
+    <footer>
+        <p>&copy; 2026 Picnic World. Toate drepturile rezervate. Creat cu ❤️ pentru iubitorii de natură.</p>
+    </footer>
+
+</body>
+</html>
